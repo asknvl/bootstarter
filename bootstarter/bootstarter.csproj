@@ -21,6 +21,7 @@
 	<!-- Will be copied from output directory -->
 	<NSPrincipalClass>NSApplication</NSPrincipalClass>
 	<NSHighResolutionCapable>true</NSHighResolutionCapable>
+	<ApplicationIcon>Parser logo 256.ico</ApplicationIcon>
 
   </PropertyGroup>
   <ItemGroup>
@@ -28,6 +29,9 @@
     <None Remove=".gitignore" />
     <None Remove="Assets\parser.png" />
     <None Remove="Assets\xtime_trim.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Parser logo 256.ico" />
   </ItemGroup>
   <ItemGroup>
     <!--This helps with theme dll-s trimming.
