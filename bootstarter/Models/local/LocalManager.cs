@@ -15,10 +15,12 @@ namespace bootstarter.Models.local
     {
         #region vars
         IPaths paths;
+        bool ismaxosx;
         #endregion
-        public LocalManager(IPaths paths)
+        public LocalManager(IPaths paths, bool ismacosx)
         {
             this.paths = paths;
+            this.ismaxosx = ismacosx;
         }
 
         #region public
@@ -41,9 +43,27 @@ namespace bootstarter.Models.local
         {
             if (File.Exists(paths.ZipPath))
             {
+                if (ismaxosx)
+                {
+                    if (Directory.Exists(paths.AppPath))
+                        Directory.Delete(paths.AppPath, true);
+                } else
+                {
+                    if (Directory.Exists(paths.AppDir))
+                    {
+                        DirectoryInfo dir = new DirectoryInfo(paths.AppDir);
 
-                if (Directory.Exists(paths.AppPath))                
-                    Directory.Delete(paths.AppPath, true);
+                        foreach (FileInfo f in dir.EnumerateFiles())
+                        {
+                            if (!f.Name.Contains("zip"))
+                            f.Delete();
+                        }
+                        foreach (DirectoryInfo d in dir.EnumerateDirectories())
+                        {
+                            d.Delete(true);
+                        }
+                    }
+                }
 
                 string macos_path = Path.Combine(paths.AppDir, "__MACOSX");
                 if (Directory.Exists(macos_path))
