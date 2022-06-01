@@ -68,9 +68,12 @@ namespace bootstarter.Models.paths
                                             "Library",
                                             "Application Support",
                                             settings.product_folder,
-                                            settings.app_name);
+                                            settings.app_name,
+                                            "bin");
             if (!Directory.Exists(app_dir))
                 Directory.CreateDirectory(app_dir);
+            else
+                Directory.Delete(app_dir, true);
 
             string tmp_path = Path.Combine(app_dir, "tmp");
             if (!Directory.Exists(tmp_path))
@@ -80,7 +83,13 @@ namespace bootstarter.Models.paths
 
             VerURL = $"{settings.update_url}/{settings.version_file}";
 
-            VerPath = Path.Combine(app_dir, settings.version_file);
+            string ver_dir = Path.Combine(user_path,
+                                            "Library",
+                                            "Application Support",
+                                            settings.product_folder,
+                                            settings.app_name);
+
+            VerPath = Path.Combine(ver_dir, settings.version_file);
 
             ZipURL = $"{settings.update_url}/{settings.app_name}.zip".Replace(" ", "%20");
 
